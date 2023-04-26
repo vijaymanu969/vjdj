@@ -16,12 +16,18 @@ class AuthSerivce{
   }
 
   //auth changes user stram
-  Stream<User> get user {
+
+  
+  //if error comes it might be from here
+
+  Stream<customer_user?> get user {
     return _auth.authStateChanges()
-    .map((User?  user )=> _userFromFirebaseUser(user))
-    //.where((user)=>user != null)
-    .map((user?) => user!);
-    //.map(_userFromFirebaseUser(user));
+    //.map((User?  user )=> _userFromFirebaseUser(user))   (3)
+    //.where((user)=>user != null)     (1)
+    //.map((user) => user);            (4)   three and four coombo
+    //.map(_userFromFirebaseUser(user));   (2) one and two combo
+
+    .map(_userFromFirebaseUser);
   }
 
   //sign in anon
