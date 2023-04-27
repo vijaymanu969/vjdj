@@ -1,24 +1,35 @@
+import 'package:firebase_xample/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+
+  final AuthSerivce _auth = AuthSerivce();
+   Home({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: Text("bitches crew"),
+        title: Text("vjdj's crew⚡"),
+        backgroundColor: Colors.black,
         elevation: 0.0,
         actions: <Widget>[
           TextButton.icon(
-            onPressed: (){
-              
-            },
-            icon: 
-          ,)
-          
-        ],
+            icon: Icon(Icons.person),
+            label: Text("logout"),
+            onPressed: () async {
+
+              await _auth.signout();
+
+
+
+
+            }
+          ),
+        ]
+
+       
       ),
     );
     

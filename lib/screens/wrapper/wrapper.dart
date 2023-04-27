@@ -11,7 +11,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _user = Provider.of<customer_user>(context);
+    final _user = Provider.of<customer_user?>(context);
 
     print(_user);
 
