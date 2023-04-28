@@ -50,6 +50,8 @@ class AuthSerivce{
 
   //register with email and password
 
+
+
   //sign out
 
   Future signout() async{
