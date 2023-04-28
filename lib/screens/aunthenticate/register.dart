@@ -1,4 +1,5 @@
 import 'package:firebase_xample/services/auth.dart';
+import 'package:firebase_xample/shared/constants.dart';
 import 'package:flutter/material.dart';
 class Register extends StatefulWidget {
 
@@ -21,18 +22,22 @@ class _RegisterState extends State<Register> {
 
   String email='';
   String  password='';
+  String error='';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blue[900],
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text("sign up to vjdj's crew"),
         actions: <Widget> [
+
           TextButton.icon(
              icon: Icon(Icons.person),
+
              label: Text('Sign in'),
+
              onPressed: (){
                 widget.toggleview();
               
@@ -51,6 +56,7 @@ class _RegisterState extends State<Register> {
               children: <Widget>[
                 SizedBox(height: 20.0),
                 TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Email'),
 
                   validator: (val) => val!.isEmpty ? 'enter an email' : null,
                   onChanged: ( val) {
@@ -64,6 +70,7 @@ class _RegisterState extends State<Register> {
                 ),
                 SizedBox(height :20.0),
                 TextFormField(
+                  decoration: textInputDecoration.copyWith(hintText: 'Password'),
                   obscureText: true,
                   validator: (val) =>val!.length < 6  ? 'enter a paassword 6+ chars long' : null,
                   onChanged: (val){
@@ -84,8 +91,15 @@ class _RegisterState extends State<Register> {
                   onPressed: () async{
 
                     if (_formKey.currentState!.validate()){
-                      print(email);
-                      print(password);
+                      dynamic result =await _auth.registerWithEmailAndPassword(email,password);
+                      if (result==null){
+                        setState(() => error ="please supply a valid email"); 
+                          
+                        
+
+                      }
+
+                      
                     }
                     
 
@@ -94,9 +108,15 @@ class _RegisterState extends State<Register> {
                   
 
                  
+                  ),
+                  SizedBox(height: 12.0,),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red,fontSize: 14.0),
                   )
               ],
-            ) ),
+            ) 
+            ),
 
         
         
