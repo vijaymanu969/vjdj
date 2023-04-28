@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+
+  final Function toggleview;
+  SignIn({required this.toggleview});
+
+  
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -25,6 +29,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         actions: <Widget> [
           TextButton.icon(onPressed: () {
+            widget.toggleview();
 
           },
            icon: Icon(Icons.person),
