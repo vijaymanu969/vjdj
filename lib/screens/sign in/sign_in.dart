@@ -1,4 +1,5 @@
 import 'package:firebase_xample/services/auth.dart';
+import 'package:firebase_xample/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_xample/shared/constants.dart';
@@ -17,6 +18,7 @@ class _SignInState extends State<SignIn> {
 
   final AuthSerivce _auth = AuthSerivce();
   final _formKey= GlobalKey<FormState>();
+  bool loading =false;
 
   //text field state
 
@@ -25,7 +27,7 @@ class _SignInState extends State<SignIn> {
   String error='';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ?Loading() :  Scaffold(
       backgroundColor: Colors.blue[900],
       appBar: AppBar(
         actions: <Widget> [
@@ -83,9 +85,16 @@ class _SignInState extends State<SignIn> {
                   ),
                   onPressed: () async{
                     if (_formKey.currentState!.validate()){
+                      setState(()=> loading= true );
                       dynamic result=await _auth.signInWithEmailAndPassword(email , password);
                       if (result==null){
-                        setState(() => error ="could not sign with those crredentials ");
+
+                        setState((){ 
+                          error ="could not sign with those crredentials ";
+                          loading =false;
+                        
+
+                      });
 
                       }  
 

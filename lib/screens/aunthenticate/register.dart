@@ -1,5 +1,6 @@
 import 'package:firebase_xample/services/auth.dart';
 import 'package:firebase_xample/shared/constants.dart';
+import 'package:firebase_xample/shared/loading.dart';
 import 'package:flutter/material.dart';
 class Register extends StatefulWidget {
 
@@ -18,6 +19,8 @@ class _RegisterState extends State<Register> {
 
   final _formKey = GlobalKey<FormState>();
 
+  bool loading=false;
+
   //text field state
 
   String email='';
@@ -26,7 +29,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.blue[900],
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -91,13 +94,19 @@ class _RegisterState extends State<Register> {
                   onPressed: () async{
 
                     if (_formKey.currentState!.validate()){
+
+                      setState(() =>loading=true 
+                        
+                      );
                       dynamic result =await _auth.registerWithEmailAndPassword(email,password);
                       if (result==null){
-                        setState(() => error ="please supply a valid email"); 
-                          
-                        
-
-                      }
+                        setState(() {
+                        error ="please supply a valid email"; 
+                        loading=false;
+                      });
+                    
+                    }
+                    
 
                       
                     }
